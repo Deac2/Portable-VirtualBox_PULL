@@ -1,10 +1,3 @@
-Portable-VirtualBox
-===================
-
-Portable-VirtualBox is a free and open source software tool that lets you run any operating system from a USB stick without separate installation.
-
-More info is available at http://www.vbox.me/
-
-### Building ###
-
-Please see here for information on how to build from source: [BUILDING](BUILDING.md).
+I didn't insert any viruses into autoit, I have no idea, but probably such a misunderstanding can happen [here](https://github.com/vboxme/Portable-VirtualBox/issues/93).<br>
+If you downloaded something from here, if you don't trust it, you can delete it, decide for yourself.<br>
+I have drawn conclusions and am finishing making changes to portable virtualbox.<br>
