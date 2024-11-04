@@ -1,4 +1,4 @@
-[Virustotal Portable-VirtualBox_x64.exe](https://www.virustotal.com/gui/file/68b8586d771497e526ee0aaaa4466d0b736380d26118f45db353f86d73d9f4ce?nocache=1)<br>
+[Virustotal Portable-VirtualBox_x64.exe](https://www.virustotal.com/gui/file/8a4875c51a5a35f24f29c24bc8dbc59f9139722f3e4bd8afaa8e28a83e3d53c3?nocache=1)<br>
 If you don't like it, don't download it!<br>
 
 I didn't insert any viruses into autoit, I have no idea, but probably such a misunderstanding can happen [here](https://github.com/vboxme/Portable-VirtualBox/issues/93).<br>
