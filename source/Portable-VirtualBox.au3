@@ -572,6 +572,11 @@ EndIf
 
       SplashOff()
 
+      RunWait($arch&"\VBoxSVC.exe /reregserver", @ScriptDir, @SW_HIDE)
+	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxC.dll", @ScriptDir, @SW_HIDE)
+	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxProxyStub.dll", @ScriptDir, @SW_HIDE)
+      DllCall($arch&"\VBoxRT.dll", "hwnd", "RTR3Init")
+
       If FileExists(@ScriptDir&"\"&$arch&"\drivers\VBoxDrv") AND RegRead("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VBoxDRV", "DisplayName") <> "VirtualBox Service" Then
         RunWait("cmd /c sc create VBoxDRV binpath= ""%CD%\"&$arch&"\drivers\VBoxDrv\VBoxDrv.sys"" type= kernel start= auto error= normal displayname= PortableVBoxDRV", @ScriptDir, @SW_HIDE)
         Local $DRV = 1
@@ -589,10 +594,10 @@ EndIf
       If IniRead($var1, "usb", "key", "NotFound") = 1 Then
         If RegRead("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VBoxUSB", "DisplayName") <> "VirtualBox USB" Then
           If @OSArch = "x86" Then
-            RunWait(@ScriptDir &"\data\tools\devcon_x86.exe install "&$arch&"\drivers\USB\device\VBoxUSB.inf ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
+            ;RunWait(@ScriptDir&"\data\tools\devcon_x86.exe install "&$arch&"\drivers\USB\device\VBoxUSB.inf ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
           EndIf
           If @OSArch = "x64" Then
-            RunWait(@ScriptDir &"\data\tools\devcon_x64.exe install "&$arch&"\drivers\USB\device\VBoxUSB.inf ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
+            RunWait(@ScriptDir&"\data\tools\devcon_x64.exe install "&$arch&"\drivers\USB\device\VBoxUSB.inf ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
           EndIf
           FileCopy(@ScriptDir&"\"&$arch&"\drivers\USB\device\VBoxUSB.sys", @SystemDir&"\drivers", 9)
           Local $USB = 1
@@ -618,10 +623,10 @@ EndIf
         EndIf
         If RegRead("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VBoxNetAdp", "DisplayName") <> "VirtualBox Host-Only Network Adapter" Then
           If @OSArch = "x86" Then
-            RunWait(@ScriptDir &"\data\tools\devcon_x86.exe install "&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".inf ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
+            RunWait(@ScriptDir&"\data\tools\devcon_x86.exe install "&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".inf ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
           EndIf
           If @OSArch = "x64" Then
-            RunWait(@ScriptDir &"\data\tools\devcon_x64.exe install "&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".inf ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
+            RunWait(@ScriptDir&"\data\tools\devcon_x64.exe install "&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".inf ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
           EndIf
           FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".sys", @SystemDir&"\drivers", 9)
           Local $ADP = 1
@@ -658,10 +663,10 @@ EndIf
         Local $NET = 0
       EndIf
 
-      RunWait($arch&"\VBoxSVC.exe /reregserver", @ScriptDir, @SW_HIDE)
-	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxC.dll", @ScriptDir, @SW_HIDE)
-	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxProxyStub.dll", @ScriptDir, @SW_HIDE)
-      DllCall($arch&"\VBoxRT.dll", "hwnd", "RTR3Init")
+      ;RunWait($arch&"\VBoxSVC.exe /reregserver", @ScriptDir, @SW_HIDE)
+	  ;RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxC.dll", @ScriptDir, @SW_HIDE)
+	  ;RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxProxyStub.dll", @ScriptDir, @SW_HIDE)
+      ;DllCall($arch&"\VBoxRT.dll", "hwnd", "RTR3Init")
 
       If $DRV = 1 Then
         RunWait("sc start VBoxDRV", @ScriptDir, @SW_HIDE)
@@ -779,6 +784,14 @@ EndIf
 			$append_wow = ""
 			EndIf
 		EndIf
+	While 1
+	Local $VBoxProxyStub = RegRead("HKLM"&$append_arch&"\SOFTWARE\Classes"&$append_wow&"\CLSID\{0BB3B78C-1807-4249-5BA5-EA42D66AF0BF}\InProcServer32", "")
+    If StringRegExp($VBoxProxyStub, "VBoxProxyStub") Then
+		Local $Filename = StringRegExpReplace($VBoxProxyStub, "^.*\\", "")
+		RunWait(@SystemDir&"\regsvr32.exe /s /u """&$VBoxProxyStub&"""", @ScriptDir, @SW_HIDE) ;COM_API
+	EndIf
+	If NOT $VBoxProxyStub Then ExitLoop
+	WEnd
 
       If $DRV = 1 Then
         RunWait("sc stop VBoxDRV", @ScriptDir, @SW_HIDE)
@@ -791,10 +804,10 @@ EndIf
       If $USB = 1 Then
         RunWait("sc stop VBoxUSB", @ScriptDir, @SW_HIDE)
         If @OSArch = "x86" Then
-          RunWait(@ScriptDir &"\data\tools\devcon_x86.exe remove ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
+          RunWait(@ScriptDir&"\data\tools\devcon_x86.exe remove ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
         EndIf
         If @OSArch = "x64" Then
-          RunWait(@ScriptDir &"\data\tools\devcon_x64.exe remove ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
+          RunWait(@ScriptDir&"\data\tools\devcon_x64.exe remove ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
         EndIf
         FileDelete(@SystemDir&"\drivers\VBoxUSB.sys")
       EndIf
@@ -806,10 +819,10 @@ EndIf
       If $ADP = 1 Then
         RunWait("sc stop VBoxNetAdp", @ScriptDir, @SW_HIDE)
         If @OSArch = "x86" Then
-          RunWait(@ScriptDir &"\data\tools\devcon_x86.exe remove ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
+          RunWait(@ScriptDir&"\data\tools\devcon_x86.exe remove ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
         EndIf
         If @OSArch = "x64" Then
-          RunWait(@ScriptDir &"\data\tools\devcon_x64.exe remove ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
+          RunWait(@ScriptDir&"\data\tools\devcon_x64.exe remove ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
         EndIf
         FileDelete(@SystemDir&"\drivers\VBoxNetAdp"&$ADPVER&".sys")
       EndIf
@@ -1695,7 +1708,7 @@ Func UseSettings()
   If (FileExists(@ScriptDir&"\virtualbox.exe") OR FileExists($SourceFile)) AND (GUICtrlRead($Checkbox100) = $GUI_CHECKED OR GUICtrlRead($Checkbox110) = $GUI_CHECKED) Then
     GUICtrlSetData($Input200, @LF & IniRead($Dir_Lang & $lng &".ini", "status", "04", "NotFound"))
     If FileExists(@ScriptDir&"\virtualbox.exe") Then
-      Run(@ScriptDir & "\virtualbox.exe -x -p temp", @ScriptDir, @SW_HIDE)
+      Run(@ScriptDir& "\virtualbox.exe -x -p temp", @ScriptDir, @SW_HIDE)
       Opt("WinTitleMatchMode", 2)
       WinWait("VirtualBox Installer", "")
       ControlClick("VirtualBox Installer", "OK", "TButton1")
