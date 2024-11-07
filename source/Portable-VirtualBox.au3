@@ -77,8 +77,6 @@ EmptyIniWrite($var1, "userhome", "key", $DefaultUserHome)
 EmptyIniWrite($var1, "userhome", "sort", "1")
 EmptyIniWrite($var1, "startvm", "key", "")
 EmptyIniWrite($var1, "lang", "key", "0")
-EmptyIniWrite($var1, "version", "key", "")
-EmptyIniWrite($var1, "starter", "key", "")
 
 EmptyIniWrite($var2, "download", "key1", "http://download.virtualbox.org/virtualbox/7.0.22/VirtualBox-7.0.22-165102-Win.exe")
 EmptyIniWrite($var2, "download", "key2", "http://download.virtualbox.org/virtualbox/7.0.22/Oracle_VM_VirtualBox_Extension_Pack-7.0.22.vbox-extpack")
