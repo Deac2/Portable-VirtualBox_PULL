@@ -44,12 +44,6 @@ Global $new1 = 0, $new2 = 0, $Settings = 0, $iSort, $lng
 ; Window Extended Styles
 Global Const $WS_SYSMENU = 0x80000,$WS_MINIMIZEBOX = 0x20000, $CBS_DROPDOWNLIST = 0x3
 
-If FileExists(@ScriptDir&"\update.exe") Then
-  Sleep(2000)
-  DirRemove(@ScriptDir&"\update", 1)
-  FileDelete(@ScriptDir&"\update.exe")
-EndIf
-
 EmptyIniWrite($var1, "hotkeys", "key", "1")
 EmptyIniWrite($var1, "hotkeys", "userkey", "0")
 EmptyIniWrite($var1, "hotkeys", "01", "^")
