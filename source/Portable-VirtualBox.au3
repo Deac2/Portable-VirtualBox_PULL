@@ -1829,7 +1829,7 @@ Func HybridMode()
 	EndIf
 
 	; Setting VBOX_USER_HOME to portable virtualbox directory(VM settings stays in this one)
-	;EnvSet("VBOX_USER_HOME", $UserHome)
+	EnvSet("VBOX_USER_HOME", $UserHome)
 
 	; Testing if major version of regular vbox is 4 then running from it
 	If $version_new <> "" AND StringLeft($version_new,1)>=4 Then
