@@ -90,12 +90,12 @@ EmptyIniWrite($var2, "download", "key1", "http://download.virtualbox.org/virtual
 EmptyIniWrite($var2, "download", "key2", "http://download.virtualbox.org/virtualbox/7.0.22/Oracle_VM_VirtualBox_Extension_Pack-7.0.22.vbox-extpack")
 
 If NOT FileExists(@ScriptDir&"\data\tools") Then DirCreate(@ScriptDir&"\data\tools")
-If NOT FileExists(@ScriptDir&"\data\settings\SplashScreen.jpg") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/master/data/settings/SplashScreen.jpg", "data/settings/SplashScreen.jpg")
-If NOT FileExists(@ScriptDir&"\data\tools\7za.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/master/data/tools/7za.exe", "data/tools/7za.exe")
-If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/master/data/tools/snetcfg_x86.exe", "data/tools/snetcfg_x86.exe")
-If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/master/data/tools/snetcfg_x64.exe", "data/tools/snetcfg_x64.exe")
-If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/master/data/tools/devcon_x86.exe", "data/tools/devcon_x86.exe")
-If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/master/data/tools/devcon_x64.exe", "data/tools/devcon_x64.exe")
+If NOT FileExists(@ScriptDir&"\data\settings\SplashScreen.jpg") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/settings/SplashScreen.jpg", "data/settings/SplashScreen.jpg")
+If NOT FileExists(@ScriptDir&"\data\tools\7za.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/tools/7za.exe", "data/tools/7za.exe")
+If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/tools/snetcfg_x86.exe", "data/tools/snetcfg_x86.exe")
+If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/tools/snetcfg_x64.exe", "data/tools/snetcfg_x64.exe")
+If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/tools/devcon_x86.exe", "data/tools/devcon_x86.exe")
+If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/tools/devcon_x64.exe", "data/tools/devcon_x64.exe")
 
 	Global $UserHome = IniRead($var1, "userhome", "key", "NotFound")
 	If FileExists(StringLeft($UserHome, 2)) Then DirCreate($UserHome)
