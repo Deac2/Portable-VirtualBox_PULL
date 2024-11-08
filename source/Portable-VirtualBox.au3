@@ -1,11 +1,3 @@
-; Language       : multilanguage
-; Author         : Michael Meyer (michaelm_007) et al.
-; e-Mail         : email.address@gmx.de
-; License        : http://creativecommons.org/licenses/by-nc-sa/3.0/
-; Version        : 6.4.9.1
-; Download       : http://www.vbox.me
-; Support        : http://www.win-lite.de/wbb/index.php?page=Board&boardID=153
-
 If NOT @Compiled Then Opt("TrayIconDebug", 1)
 #pragma compile(Icon, VirtualBox.ico)
 #pragma compile(UPX, false)
@@ -42,7 +34,7 @@ Global $32Bit_Last = "6.0.24"
 
 Global $new1 = 0, $new2 = 0, $Settings = 0, $iSort, $lng
 ; Window Extended Styles
-Global Const $WS_SYSMENU = 0x80000,$WS_MINIMIZEBOX = 0x20000, $CBS_DROPDOWNLIST = 0x3
+Global Const $WS_SYSMENU = 80000, $WS_MINIMIZEBOX = 20000, $CBS_DROPDOWNLIST = 3
 
 EmptyIniWrite($var1, "hotkeys", "key", "1")
 EmptyIniWrite($var1, "hotkeys", "userkey", "0")
