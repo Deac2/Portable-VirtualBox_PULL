@@ -34,7 +34,7 @@ Global $32Bit_Last = "6.0.24"
 
 Global $new1 = 0, $new2 = 0, $Settings = 0, $iSort, $lng
 ; Window Extended Styles
-Global Const $WS_SYSMENU = 80000, $WS_MINIMIZEBOX = 20000, $CBS_DROPDOWNLIST = 3
+Global Const $WS_SYSMENU = 0x80000, $WS_MINIMIZEBOX = 0x20000, $CBS_DROPDOWNLIST = 0x3
 
 EmptyIniWrite($var1, "hotkeys", "key", "1")
 EmptyIniWrite($var1, "hotkeys", "userkey", "0")
