@@ -572,7 +572,7 @@ EndIf
 
       SplashOff()
 
-      If FileExists(@ScriptDir&"\"&$arch&"\drivers\VBoxDrv") AND RegRead("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VBoxDRV", "DisplayName") <> "VirtualBox Service" Then
+      If FileExists(@ScriptDir&"\"&$arch&"\drivers\vboxdrv") AND RegRead("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VBoxDRV", "DisplayName") <> "VirtualBox Service" Then
         RunWait("cmd /c sc create VBoxDRV binpath= ""%CD%\"&$arch&"\drivers\VBoxDrv\VBoxDrv.sys"" type= kernel start= auto error= normal displayname= PortableVBoxDRV", @ScriptDir, @SW_HIDE)
 		RunWait("sc start VBoxDRV", @ScriptDir, @SW_HIDE)
         Local $DRV = 1
@@ -604,7 +604,7 @@ EndIf
           If @OSArch = "x64" Then
             RunWait(@ScriptDir&"\data\tools\devcon_x64.exe install "&$arch&"\drivers\USB\device\VBoxUSB.inf ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
           EndIf
-          FileCopy(@ScriptDir&"\"&$arch&"\drivers\USB\device\VBoxUSB.sys", @SystemDir&"\drivers", 9)
+          FileCopy(@ScriptDir&"\"&$arch&"\drivers\USB\device\VBoxUSB.sys", @WindowsDir&"\System32\drivers", 9)
 		  RunWait("sc start VBoxUSB", @ScriptDir, @SW_HIDE)
           Local $USB = 1
         Else
@@ -627,7 +627,7 @@ EndIf
           If @OSArch = "x64" Then
             RunWait(@ScriptDir&"\data\tools\devcon_x64.exe install "&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".inf ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
           EndIf
-          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".sys", @SystemDir&"\drivers", 9)
+          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netadp"&$ADPVER&"\VBoxNetAdp"&$ADPVER&".sys", @WindowsDir&"\System32\drivers", 9)
           RunWait("sc start VBoxNetAdp", @ScriptDir, @SW_HIDE)
           Local $ADP = 1
         Else
@@ -651,10 +651,10 @@ EndIf
             RunWait(@ScriptDir&"\data\tools\snetcfg_x64.exe -v -u ""oracle_VBoxNetLwf""", @ScriptDir, @SW_HIDE)
             RunWait(@ScriptDir&"\data\tools\snetcfg_x64.exe -v -l "&$arch&"\drivers\network\netlwf\VBoxNetLwf.inf -m "&$arch&"\drivers\network\netlwf\VBoxNetLwf.inf -c s -i ""oracle_VBoxNetLwf""", @ScriptDir, @SW_HIDE)
           EndIf
-          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netflt\VBoxNetFltNobj.dll", @SystemDir, 9)
-          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netflt\VBoxNetFlt.sys", @SystemDir&"\drivers", 9)
-          RunWait(@SystemDir&"\regsvr32.exe /S "& @SystemDir&"\VBoxNetFltNobj.dll", @ScriptDir, @SW_HIDE)
-          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netlwf\VBoxNetLwf.sys", @SystemDir&"\drivers", 9)
+          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netflt\VBoxNetFltNobj.dll", @WindowsDir&"\System32", 9)
+          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netflt\VBoxNetFlt.sys", @WindowsDir&"\System32\drivers", 9)
+          RunWait(@SystemDir&"\regsvr32.exe /S "& @WindowsDir&"\System32\VBoxNetFltNobj.dll", @WindowsDir&"\System32", @SW_HIDE)
+          FileCopy(@ScriptDir&"\"&$arch&"\drivers\network\netlwf\VBoxNetLwf.sys", @WindowsDir&"\System32\drivers", 9)
           RunWait("sc start VBoxNetFlt", @ScriptDir, @SW_HIDE)
 		  RunWait("sc start VBoxNetLwf", @ScriptDir, @SW_HIDE)
           Local $NET = 1
@@ -787,7 +787,7 @@ EndIf
         If @OSArch = "x64" Then
           RunWait(@ScriptDir&"\data\tools\devcon_x64.exe remove ""USB\VID_80EE&PID_CAFE""", @ScriptDir, @SW_HIDE)
         EndIf
-        FileDelete(@SystemDir&"\drivers\VBoxUSB.sys")
+        FileDelete(@WindowsDir&"\System32\drivers\VBoxUSB.sys")
       EndIf
 
       If $MON = 1 Then
@@ -802,7 +802,7 @@ EndIf
         If @OSArch = "x64" Then
           RunWait(@ScriptDir&"\data\tools\devcon_x64.exe remove ""sun_VBoxNetAdp""", @ScriptDir, @SW_HIDE)
         EndIf
-        FileDelete(@SystemDir&"\drivers\VBoxNetAdp"&$ADPVER&".sys")
+        FileDelete(@WindowsDir&"\System32\drivers\VBoxNetAdp"&$ADPVER&".sys")
       EndIf
 
       If $NET = 1 Then
@@ -816,12 +816,12 @@ EndIf
           RunWait(@ScriptDir&"\data\tools\snetcfg_x64.exe -v -u ""sun_VBoxNetFlt""", @ScriptDir, @SW_HIDE)
           RunWait(@ScriptDir&"\data\tools\snetcfg_x64.exe -v -u ""oracle_VBoxNetLwf""", @ScriptDir, @SW_HIDE)
         EndIf
-        RunWait(@SystemDir&"\regsvr32.exe /S /U "&@SystemDir&"\VBoxNetFltNobj.dll", @ScriptDir, @SW_HIDE)
+        RunWait(@SystemDir&"\regsvr32.exe /S /U "&@WindowsDir&"\System32\VBoxNetFltNobj.dll", @ScriptDir, @SW_HIDE)
         RunWait("sc delete VBoxNetFlt", @ScriptDir, @SW_HIDE)
         RunWait("sc delete VBoxNetLwf", @ScriptDir, @SW_HIDE)
-        FileDelete(@SystemDir&"\VBoxNetFltNobj.dll")
-        FileDelete(@SystemDir&"\drivers\VBoxNetFlt.sys")
-        FileDelete(@SystemDir&"\drivers\VBoxNetLwf.sys")
+        FileDelete(@WindowsDir&"\System32\VBoxNetFltNobj.dll")
+        FileDelete(@WindowsDir&"\System32\drivers\VBoxNetFlt.sys")
+        FileDelete(@WindowsDir&"\System32\drivers\VBoxNetLwf.sys")
       EndIf
 
       If FileExists(@ScriptDir&"\"&$arch&"\") AND FileExists(@ScriptDir&"\vboxadditions\") Then
