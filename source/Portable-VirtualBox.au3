@@ -157,13 +157,9 @@ If IniRead($var1, "lang", "key", "NotFound") = 0 Then
 EndIf
 
 $lng = IniRead($var1, "language", "key", "NotFound")
-
 $UserHome = IniRead($var1, "userhome", "key", "NotFound")
-EnvSet("VBOX_USER_HOME", $UserHome)
-If $CmdLine[0] = 1 AND $CmdLine[1]="noportable" Then
-; Thibaut : use Hybrid Mode if available
+
 HybridMode()
-Endif
 
 If NOT (FileExists(@ScriptDir&"\app32\VirtualBox.exe") OR FileExists(@ScriptDir&"\app64\VirtualBox.exe")) Then
   Global $Checkbox100, $Checkbox110, $Checkbox120
