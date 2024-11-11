@@ -1,4 +1,3 @@
-What are the two VBoxNetFlt network drivers for? It doesn't even install via windows, VBoxNetLwf driver is mostly installed<br>
 22.10.2024 If you have an old language folder, Delete the data\language folder as the languages ​​have been partially changed.<br>
 Disable message center notifications and screen capture messages VirtualBoxVM.exe default settings directory:<br>
 Portable-VirtualBox\\.VirtualBox\VirtualBox.xml<br>
