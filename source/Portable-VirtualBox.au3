@@ -9,7 +9,7 @@ If NOT @Compiled Then Opt("TrayIconDebug", 1)
 
 #include <GUIConstantsEx.au3>
 #include <RecFileListToArray.au3>
-#include <language.au3>
+#include <Language.au3>
 #include <SingleTon.au3>
 
 _SingleTon(@ScriptName)
@@ -655,7 +655,6 @@ EndIf
 
       RunWait($arch&"\VBoxSVC.exe /reregserver", @ScriptDir, @SW_HIDE)
 	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxC.dll", @ScriptDir, @SW_HIDE)
-	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxProxyStub.dll", @ScriptDir, @SW_HIDE)
       DllCall($arch&"\VBoxRT.dll", "hwnd", "RTR3Init")
 
       #clear log
@@ -1311,7 +1310,7 @@ EndFunc
 Func SRCStartVM()
   Local $PathVM
     If FileExists ($UserHome) Then
-      $PathVM = FileOpenDialog (IniRead ($Dir_Lang & $lng &".ini", "srcstartvm", "01", "NotFound"), $UserHome, "VirtualBox VM (*.vbox)", 1+2)
+      $PathVM = FileOpenDialog(IniRead($Dir_Lang & $lng &".ini", "srcstartvm", "01", "NotFound"), $UserHome, "VirtualBox VM (*.vbox)", 1+2)
     EndIf
   If NOT @error Then
     $line = FileRead(FileOpen($PathVM, 128))
