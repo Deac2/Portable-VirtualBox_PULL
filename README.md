@@ -25,17 +25,22 @@ Please see here for information on how to build from source: [BUILDING](BUILDING
 
 ### Changelog for VirtualBox ###
 
-<strong>VirtualBox 7.0.22</strong> (released October 15 2024)<br /><br />
+<strong>VirtualBox 7.0.24</strong> (released January 21 2025)<br /><br />
 This is a maintenance release. The following items were fixed and/or added:
 </p>
-<ul><li>GUI: Fixed deletion of VMs with unattended install related files, no longer leave them behind causing trouble with creating a new VM with the same name (bug <a class="closed ticket" href="https://www.virtualbox.org/ticket/21331" title="#21331: defect: Delete of a VM does not delete unattended files, so can't recreate VM (closed: fixed)">#21331</a>)
-</li><li>GUI: Updated Italian, Greek, Georgian, Turkish and Indonesian translations
-</li><li>VMSVGA: Improved flickering, black screen and other screen update issues with recent Linux kernels (bug <a class="accepted ticket" href="https://www.virtualbox.org/ticket/21955" title="#21955: defect: Heavy screen flickering VirtualBox 6.1.48 / 7.0.12 Ubuntu Wayland ... (accepted)">#21955</a>)
-</li><li>TPM: Fixed multiple issues with TPM deployment with Windows 10/11 VMs
-</li><li>3D: Improve accuracy of 3D capability reporting, limit it to what the host can handle
-</li><li>API: Suppress logging of "Screenshot is not possible" errors when the VGA config is invalid, avoiding user confusion
-</li><li>API: Fixed NVRAM file handling when taking snapshots
-</li><li>API: Fixed NVRAM file deletion for VMs using BIOS firmware
-</li><li>API: Fixed rare hangs when API objects are uninitialized concurrently
-</li><li>Windows host: Fixed system DLL size checking which failed with Windows 11 24H2 and recent Insider Preview builds (bug <a class="closed ticket" href="https://www.virtualbox.org/ticket/22162" title="#22162: defect: WIndows hosts based on W11 24H2 cannot start headless or detachable ... (closed: fixed)">#22162</a>)
+<ul><li>VMM: Fixed issue when Windows 11 24H2 guest was experiencing BSOD in rare conditions
+</li><li>GUI: Fixed issue when error message was shown when VM was starting in full-screen mode
+</li><li>Graphics: Fixed issue with Linux guest screen flickering when guest was using VMSVGA graphics adapter
+</li><li>VirtioNet: Fixed issue with re-negotiation of features after reset
+</li><li>VBoxManage: Added the ability to export and import VMs which contain an NVMe storage controller
+</li><li>Main: Fixed issue when specifying custom proxy server in GUI settings had no effect
+</li><li>Guest OSes: Added OS type for Windows Server 2025
+</li><li>Linux guest and host: Added initial support for RHEL 9.6 kernel
+</li><li>Linux guest and host: Added more fixes for UBSAN related warnings (bug <a class="closed ticket" href="/ticket/21877" title="#21877: defect: UBSAN errors with Kernel 6.5 (closed: fixed)">#21877</a>)
+</li><li>Solaris host: Removed the <a class="wiki" href="/wiki/VirtualBox">VirtualBox</a> GUI shared objects libqgtk2styleVBox.so and libqgtk2VBox.so from the Solaris installation packages as they depend on GTK2 which is EOL and no longer supported
+</li><li>Windows guests and host: Re-implemented driver installation
+</li><li>Linux Guest Additions: Introduced initial support for kernel 6.13
+</li><li>Linux Guest Additions: vboxvideo: Added improvement for kernel 6.4 support and fixed issue when graphics could be frozen when using VBoxVGA adapter
+</li><li>Linux Guest Additions: Introduced additional fixes for kernel 6.12 in vboxvideo
+</li><li>Windows Guest Additions: Fixed guest screen resize issue which caused random failure of switching modes for virtual displays
 </li></ul>
