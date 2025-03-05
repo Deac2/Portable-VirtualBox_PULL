@@ -212,7 +212,8 @@ If NOT (FileExists(@ScriptDir&"\app32\VirtualBox.exe") OR FileExists(@ScriptDir&
   GUICtrlCreateLabel(IniRead($Dir_Lang & $lng &".ini", "download", "02", "NotFound"), 32, 8, 476, 60)
   GUICtrlSetFont(-1, 10, 400, "Arial")
 
-  $Button100 = GUICtrlCreateButton(IniRead($Dir_Lang & $lng &".ini", "download", "03", "NotFound"), 32, 62, 473, 33)
+  Local $download1 = StringRegExpReplace(IniRead(@ScriptDir&"\data\settings\vboxinstall.ini", "download", "key1", "NotFound"), "^.*/(\d+\.\d+.\d+)/?.*", "$1")
+  $Button100 = GUICtrlCreateButton(IniRead($Dir_Lang & $lng &".ini", "download", "03", "NotFound") &" "& $download1, 32, 62, 473, 33)
   GUICtrlSetFont(-1, 12, 400, "Arial")
   GUICtrlSetOnEvent(-1, "DownloadFile")
 
@@ -282,7 +283,7 @@ If (FileExists(@ScriptDir&"\app32\virtualbox.exe") OR FileExists(@ScriptDir&"\ap
 	$Manager = "Manager"
   EndIf
 
-    Local $sFileVer = StringRegExpReplace(FileGetVersion(@ScriptDir&"\"&$arch&"\VirtualBox.exe"), "^(\d+\.\d+.\d+)?.*", "\1")
+    Local $sFileVer = StringRegExpReplace(FileGetVersion(@ScriptDir&"\"&$arch&"\VirtualBox.exe"), "^(\d+\.\d+.\d+)?.*", "$1")
   If $sFileVer>="7.1.0" Then
     Global $VMTitle = "Oracle VirtualBox"
   Else
