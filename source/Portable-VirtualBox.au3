@@ -70,8 +70,8 @@ EmptyIniWrite($var1, "userhome", "sort", "1")
 EmptyIniWrite($var1, "startvm", "key", "")
 EmptyIniWrite($var1, "lang", "key", "0")
 
-IniWrite($var2, "download", "key1", "https://download.virtualbox.org/virtualbox/7.0.24/VirtualBox-7.0.24-167081-Win.exe")
-IniWrite($var2, "download", "key2", "https://download.virtualbox.org/virtualbox/7.0.24/Oracle_VM_VirtualBox_Extension_Pack-7.0.24.vbox-extpack")
+EmptyIniWrite($var2, "download", "key1", "https://download.virtualbox.org/virtualbox/7.0.24/VirtualBox-7.0.24-167081-Win.exe")
+EmptyIniWrite($var2, "download", "key2", "https://download.virtualbox.org/virtualbox/7.0.24/Oracle_VM_VirtualBox_Extension_Pack-7.0.24.vbox-extpack")
 
 If NOT FileExists(@ScriptDir&"\data\tools") Then DirCreate(@ScriptDir&"\data\tools")
 If NOT FileExists(@ScriptDir&"\data\settings\SplashScreen.jpg") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox/refs/heads/resource/data/settings/SplashScreen.jpg", "data/settings/SplashScreen.jpg")
