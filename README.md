@@ -1,5 +1,3 @@
-Low speed network NAT problems in 7.1.0 rollback to version 7.0.20 anyone who wants can watch can change download url<br>
-On VirtualBox versions ver. 7 and above<br>
 Disable message center notifications and screen capture messages VirtualBoxVM.exe default settings directory:<br>
 Portable-VirtualBox\\.VirtualBox\VirtualBox.xml<br>
 Change or add before launch <ExtraDataItem name=\"GUI/SuppressMessages\" value=\"all\"/> sample:<br><br>
