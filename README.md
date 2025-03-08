@@ -1,5 +1,3 @@
-I'll try to rework the code differently, I don't like the current one.<br>
-This version will go to: https://github.com/Deac2/Portable-VirtualBox_old <br>
 22.10.2024 If you have an old language folder, Delete the data\language folder as the languages ​​have been partially changed.<br>
 Disable message center notifications and screen capture messages VirtualBoxVM.exe default settings directory:<br>
 Portable-VirtualBox\\.VirtualBox\VirtualBox.xml<br>
