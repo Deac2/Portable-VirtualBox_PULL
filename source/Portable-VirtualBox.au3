@@ -655,6 +655,7 @@ EndIf
       EndIf
 
       RunWait($arch&"\VBoxSVC.exe /reregserver", @ScriptDir, @SW_HIDE)
+	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxProxyStub.dll", @ScriptDir, @SW_HIDE)
 	  RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxC.dll", @ScriptDir, @SW_HIDE)
       DllCall($arch&"\VBoxRT.dll", "hwnd", "RTR3Init")
 
@@ -753,8 +754,7 @@ EndIf
 	While 1
 	Local $VBoxProxyStub = RegRead("HKLM"&$append_arch&"\SOFTWARE\Classes"&$append_wow&"\CLSID\{0BB3B78C-1807-4249-5BA5-EA42D66AF0BF}\InProcServer32", "")
     If StringRegExp($VBoxProxyStub, "VBoxProxyStub") Then
-		Local $Filename = StringRegExpReplace($VBoxProxyStub, "^.*\\", "")
-		RunWait(@SystemDir&"\regsvr32.exe /s /u """&$VBoxProxyStub&"""", @ScriptDir, @SW_HIDE)
+		RunWait(@SystemDir&"\regsvr32.exe /S "&$arch&"\VBoxProxyStub.dll", @ScriptDir, @SW_HIDE)
 	EndIf
 	If NOT $VBoxProxyStub Then ExitLoop
 	WEnd
