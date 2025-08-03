@@ -1,7 +1,3 @@
-I don't know which settings are better, but this way there are fewer tabs, should I redo it or not...<br>
-If there are no check marks, it means it is disabled or by default.<br>
-<img width="576" height="378" alt="image" src="https://github.com/user-attachments/assets/2cc33ccf-c18b-4078-881e-22d0c7442470"/>
-
 22.10.2024 If you have an old language folder, Delete the data\language folder as the languages ​​have been partially changed.<br>
 Disable message center notifications and screen capture messages VirtualBoxVM.exe default settings directory:<br>
 Portable-VirtualBox\\.VirtualBox\VirtualBox.xml<br>
