@@ -701,7 +701,7 @@ EndIf
             RunWait("cmd /c set VBOX_USER_HOME="&$UserHome&"& "&$arch&"\VirtualBox.exe", @ScriptDir, @SW_HIDE)
           EndIf
         Else
-          RunWait("cmd /c set VBOX_USER_HOME="&$UserHome&"& "&$arch&"\VirtualBox.exe", @ScriptDir, @SW_HIDE)
+          RunWait("cmd /c set VBOX_USER_HOME="&$DefaultUserHome&"& "&$arch&"\VirtualBox.exe", @ScriptDir, @SW_HIDE)
         EndIf
 
         ProcessWaitClose("VirtualBox.exe")
@@ -716,7 +716,7 @@ EndIf
             RunWait("cmd /c set VBOX_USER_HOME="&$UserHome&"& "&$arch&"\VirtualBox.exe", @ScriptDir, @SW_HIDE)
           EndIf
         Else
-          RunWait("cmd /c set VBOX_USER_HOME="&$UserHome&"& "&$arch&"\VirtualBox.exe", @ScriptDir, @SW_HIDE)
+          RunWait("cmd /c set VBOX_USER_HOME="&$DefaultUserHome&"& "&$arch&"\VirtualBox.exe", @ScriptDir, @SW_HIDE)
         EndIf
 
         ProcessWaitClose("VirtualBox.exe")
