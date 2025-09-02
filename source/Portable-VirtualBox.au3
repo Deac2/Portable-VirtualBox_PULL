@@ -73,6 +73,7 @@ EmptyIniWrite($var1, "lang", "key", "0")
 EmptyIniWrite($var2, "download", "key1", "https://download.virtualbox.org/virtualbox/7.0.26/VirtualBox-7.0.26-168464-Win.exe")
 EmptyIniWrite($var2, "download", "key2", "https://download.virtualbox.org/virtualbox/7.0.26/Oracle_VM_VirtualBox_Extension_Pack-7.0.26.vbox-extpack")
 
+#cs
 If NOT FileExists(@ScriptDir&"\data\tools") Then DirCreate(@ScriptDir&"\data\tools")
 If NOT FileExists(@ScriptDir&"\data\settings\SplashScreen.jpg") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/settings/SplashScreen.jpg", "data/settings/SplashScreen.jpg")
 If NOT FileExists(@ScriptDir&"\data\tools\7za.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/7za.exe", "data/tools/7za.exe")
@@ -80,36 +81,10 @@ If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x86.exe") 
 If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/snetcfg_x64.exe", "data/tools/snetcfg_x64.exe")
 If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/devcon_x86.exe", "data/tools/devcon_x86.exe")
 If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/devcon_x64.exe", "data/tools/devcon_x64.exe")
+#ce
 
 	Global $UserHome = IniRead($var1, "userhome", "key", "NotFound")
-	If FileExists(StringLeft($UserHome, 2)) Then DirCreate($UserHome)
-		If FileExists($UserHome) AND StringInStr(FileGetAttrib($UserHome), "D") AND NOT StringInStr(FileGetAttrib($UserHome), "R") Then
-			If NOT StringRegExp(StringLeft($UserHome, 3),":\\") Then
-			$UserHome = StringRegExpReplace($UserHome, "\h*[\/\\]+\h*", "\\")
-			$UserHome = StringRegExpReplace($UserHome, ":", ":\\")
-			$UserHome = StringRegExpReplace($UserHome, "\\+$", "")
-			IniWrite($var1, "userhome", "key", $UserHome)
-			Else
-			$UserHome = StringRegExpReplace($UserHome, "\h*[\/\\]+\h*", "\\")
-			$UserHome = StringRegExpReplace($UserHome, "\\+$", "")
-			IniWrite($var1, "userhome", "key", $UserHome)
-			EndIf
-		Else
-			If FileExists(StringRegExp(StringLeft($UserHome, 2),":")) Then
-			$UserHome = StringRegExpReplace($UserHome, "\h*[\/\\]+\h*", "\\")
-			$UserHome = StringRegExpReplace($UserHome, "\\+$", "")
-			IniWrite($var1, "userhome", "key", $DefaultUserHome)
-			Else
-			$UserHome = StringRegExpReplace($UserHome, "\h*[\/\\]+\h*", "\\")
-			$UserHome = StringRegExpReplace($UserHome, "\\+$", "")
-			IniWrite($var1, "userhome", "key", $DefaultUserHome)
-			EndIf
-			If NOT FileExists($UserHome) Then
-			$UserHome = StringRegExpReplace($UserHome, "\h*[\/\\]+\h*", "\\")
-			$UserHome = StringRegExpReplace($UserHome, "\\+$", "")
-			IniWrite($var1, "userhome", "key", $DefaultUserHome)
-			EndIf
-	EndIf
+	ValidateAndSavePath("userhome", "key", $UserHome)
 
 If IniRead($var1, "lang", "key", "NotFound") = 0 Then
   Global $cl = 1, $StartLng
@@ -890,6 +865,37 @@ Func HideWindows()
   WinSetState(""&$VMTitle&" "&$Manager&"", "", @SW_HIDE)
 EndFunc
 
+Func ValidateAndSavePath($iniSection, $iniKey, $Path)
+    If FileExists(StringLeft($Path, 2)) Then DirCreate($Path)
+    If FileExists($Path) And StringInStr(FileGetAttrib($Path), "D") And Not StringInStr(FileGetAttrib($Path), "R") Then
+        If Not StringRegExp(StringLeft($Path, 3), ":\\") Then
+            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
+            $Path = StringRegExpReplace($Path, ":", ":\\")
+            $Path = StringRegExpReplace($Path, "\\+$", "")
+            IniWrite($var1, $iniSection, $iniKey, $Path)
+        Else
+            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
+            $Path = StringRegExpReplace($Path, "\\+$", "")
+            IniWrite($var1, $iniSection, $iniKey, $Path)
+        EndIf
+    Else
+        If FileExists(StringRegExp(StringLeft($Path, 2), ":")) Then
+            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
+            $Path = StringRegExpReplace($Path, "\\+$", "")
+            IniWrite($var1, $iniSection, $iniKey, $DefaultUserHome)
+        Else
+            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
+            $Path = StringRegExpReplace($Path, "\\+$", "")
+            IniWrite($var1, $iniSection, $iniKey, $DefaultUserHome)
+        EndIf
+        If Not FileExists($Path) Then
+            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
+            $Path = StringRegExpReplace($Path, "\\+$", "")
+            IniWrite($var1, $iniSection, $iniKey, $DefaultUserHome)
+        EndIf
+    EndIf
+EndFunc
+
 Func EmptyIniWrite($filename, $section, $key, $value, $encoding = 256)
     If BitOR($encoding, 16, 32, 64, 128, 256, 512) <> Number(16+32+64+128+256+512) Then
         $encoding = 256
@@ -1300,7 +1306,7 @@ Func OKUserHome()
     MsgBox(0, IniRead($Dir_Lang & $lng &".ini", "messages", "04", "NotFound"), IniRead($Dir_Lang & $lng &".ini", "messages", "05", "NotFound"))
   Else
     If FileExists(GUICtrlRead($HomeRoot)) Then
-      IniWrite(@ScriptDir&"\data\settings\settings.ini", "userhome", "key", GUICtrlRead($HomeRoot))
+      ValidateAndSavePath("userhome", "key", GUICtrlRead($HomeRoot))
       MsgBox(0, IniRead($Dir_Lang & $lng &".ini", "messages", "04", "NotFound"), IniRead($Dir_Lang & $lng &".ini", "messages", "05", "NotFound"))
     Else
 	  MsgBox(0, IniRead($Dir_Lang & $lng &".ini", "messages", "01", "NotFound"), IniRead($Dir_Lang & $lng &".ini", "okuserhome", "01", "NotFound"))
