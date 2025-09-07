@@ -43,6 +43,7 @@ Tasklist /FI "IMAGENAME eq AutoIt3.exe" 2>Nul|findstr "= # AutoIt3" && echo.&
 echo Enter the number:
 echo 1 -^>^ Run script execution
 echo 2 -^>^ Exit or close console to cancel
+echo.&
 
 Set /p choice="Write a number to continue: "
 
