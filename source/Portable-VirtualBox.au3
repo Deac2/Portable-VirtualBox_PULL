@@ -858,29 +858,16 @@ EndFunc
 Func ValidateAndSavePath($iniSection, $iniKey, $Path)
     If FileExists(StringLeft($Path, 2)) Then DirCreate($Path)
     If FileExists($Path) And StringInStr(FileGetAttrib($Path), "D") And Not StringInStr(FileGetAttrib($Path), "R") Then
-        If Not StringRegExp(StringLeft($Path, 3), ":\\") Then
-            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
-            $Path = StringRegExpReplace($Path, ":", ":\\")
-            $Path = StringRegExpReplace($Path, "\\+$", "")
+			$Path = StringReplace($Path, "/", "\")
+			$Path = StringRegExpReplace($Path, "\\{2,}", "\\")
             IniWrite($var1, $iniSection, $iniKey, $Path)
-        Else
-            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
-            $Path = StringRegExpReplace($Path, "\\+$", "")
-            IniWrite($var1, $iniSection, $iniKey, $Path)
-        EndIf
     Else
         If FileExists(StringRegExp(StringLeft($Path, 2), ":")) Then
-            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
-            $Path = StringRegExpReplace($Path, "\\+$", "")
             IniWrite($var1, $iniSection, $iniKey, $DefaultUserHome)
         Else
-            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
-            $Path = StringRegExpReplace($Path, "\\+$", "")
             IniWrite($var1, $iniSection, $iniKey, $DefaultUserHome)
         EndIf
         If Not FileExists($Path) Then
-            $Path = StringRegExpReplace($Path, "\h*[\/\\]+\h*", "\\")
-            $Path = StringRegExpReplace($Path, "\\+$", "")
             IniWrite($var1, $iniSection, $iniKey, $DefaultUserHome)
         EndIf
     EndIf
