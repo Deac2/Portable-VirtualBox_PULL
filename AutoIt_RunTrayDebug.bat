@@ -27,7 +27,7 @@ set "PPATH=%ProgramFiles(x86)%\AutoIt3\AutoIt3.exe"
 IF exist "%PPATH%" (
     set "AutoIt3=%PPATH%"
 	goto done_AutoIt3
-) 
+)
 
 :done_AutoIt3
 IF not exist "%AutoIt3%" (
@@ -43,16 +43,13 @@ Tasklist /FI "IMAGENAME eq AutoIt3.exe" 2>Nul|findstr "= # AutoIt3" && echo.&
 echo Enter the number:
 echo 1 -^>^ Run script execution
 echo 2 -^>^ Exit or close console to cancel
-echo.&
+
 Set /p choice="Write a number to continue: "
+
 if not defined choice cls&&goto m1
-if "%choice%"=="1" (
-cls
-goto Start
-)
-if "%choice%"=="2" (
-exit
-)
+if "%choice%"=="1" (cls
+goto Start)
+if "%choice%"=="2" (exit)
 
 :Start
 echo Wait for the Portable-VirtualBox source code to run,
@@ -62,10 +59,11 @@ echo You can minimize the console if you need to restart it after closing
 echo Portable-VirtualBox, you will return to the menu, if the console is
 echo no longer needed, you can close it manually
 
-TaskList /FI "ImageName EQ AutoIt3.exe"|Find /I "AutoIt3">nul||(
+tasklist /FI "IMAGENAME eq AutoIt3.exe" | find /I "AutoIt3.exe" >nul
+if errorlevel 1 (
 rem Launch Portable-VirtualBox.
 start "" "%AutoIt3%" "%input_folder%source\Portable-VirtualBox.au3"
-timeout /t 10
+Set choice=
 )
 
 cls
