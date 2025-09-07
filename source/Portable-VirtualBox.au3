@@ -73,16 +73,6 @@ EmptyIniWrite($var1, "lang", "key", "0")
 EmptyIniWrite($var2, "download", "key1", "https://download.virtualbox.org/virtualbox/7.0.26/VirtualBox-7.0.26-168464-Win.exe")
 EmptyIniWrite($var2, "download", "key2", "https://download.virtualbox.org/virtualbox/7.0.26/Oracle_VM_VirtualBox_Extension_Pack-7.0.26.vbox-extpack")
 
-#cs
-If NOT FileExists(@ScriptDir&"\data\tools") Then DirCreate(@ScriptDir&"\data\tools")
-If NOT FileExists(@ScriptDir&"\data\settings\SplashScreen.jpg") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/settings/SplashScreen.jpg", "data/settings/SplashScreen.jpg")
-If NOT FileExists(@ScriptDir&"\data\tools\7za.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/7za.exe", "data/tools/7za.exe")
-If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/snetcfg_x86.exe", "data/tools/snetcfg_x86.exe")
-If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\snetcfg_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/snetcfg_x64.exe", "data/tools/snetcfg_x64.exe")
-If @OSArch = "x86" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x86.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/devcon_x86.exe", "data/tools/devcon_x86.exe")
-If @OSArch = "x64" AND NOT FileExists(@ScriptDir&"\data\tools\devcon_x64.exe") Then DownloadGithub("http://raw.githubusercontent.com/Deac2/Portable-VirtualBox-resource/refs/heads/master/data/tools/devcon_x64.exe", "data/tools/devcon_x64.exe")
-#ce
-
 	Global $UserHome = IniRead($var1, "userhome", "key", "NotFound")
 	ValidateAndSavePath("userhome", "key", $UserHome)
 
