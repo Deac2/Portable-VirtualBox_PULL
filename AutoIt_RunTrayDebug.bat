@@ -60,8 +60,8 @@ echo You can minimize the console if you need to restart it after closing
 echo Portable-VirtualBox, you will return to the menu, if the console is
 echo no longer needed, you can close it manually
 
-tasklist /FI "IMAGENAME eq AutoIt3.exe" | find /I "AutoIt3.exe" >nul
-if errorlevel 1 (
+wmic process where "name='AutoIt3.exe'" get CommandLine | find /I "Portable-VirtualBox.au3" >nul
+if %errorlevel%==1 (
 rem Launch Portable-VirtualBox.
 start "" "%AutoIt3%" "%input_folder%source\Portable-VirtualBox.au3"
 Set choice=
