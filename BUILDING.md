@@ -12,13 +12,13 @@ Obtain and install the following free tools
 
 Check out the source code from GitHub. For example by using [GitHub on Windows](http://windows.github.com/) or use `git` from the command line like this:
 
-`git clone https://github.com/vboxme/Portable-VirtualBox.git`
+`git clone https://github.com/Deac2/Portable-VirtualBox.git`
 
 This will create a new folder named `Portable-VirtualBox`.
 
 ## Making a new version with the build script
 
-Run the `build.bat` script. The new version should appear in the `build\release` directory.
+Run the `Build_x64.bat` or `Build_x86.bat` script. The new version should appear in the `build` directory.
 
 ## Making a new version manually
 
